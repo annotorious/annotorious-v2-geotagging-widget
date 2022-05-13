@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Annotorious | Geotagging Widget</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.7.6/dist/annotorious.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.7.6/dist/annotorious.min.js"></script>
+  </head>
+  <body>
+    <div id="content">    
+      <img id="hallstatt" src="640px-Hallstatt.jpg">
+    </div>
+  </div>
+    <script>
+      window.onload = function() {
+        anno = Annotorious.init({
+          image: 'hallstatt',
+          widgets: [
+            { widget: recogito.GeoTagging() },
+            { widget: 'COMMENT' },
+            { widget: 'TAG', vocabulary: [ 'Animal', 'Building', 'Waterbody'] }
+          ]
+        });
+
+        anno.on('createAnnotation', function (annotation) {
+          console.log('created', annotation);
+        });
+
+        anno.on('updateAnnotation', function(annotation, previous) {
+          console.log('updated', previous, 'with', annotation);
+        });
+
+        anno.on('deleteAnnotation', function(annotation) {
+          console.log('deleted', annotation);
+        });        
+      }
+    </script>
+  </body>
+</html>
