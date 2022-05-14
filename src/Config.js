@@ -1,4 +1,7 @@
 export const createConfig = config => ({
+  // Widget height
+  height: config.height || 200,
+
   // Tile URL
   tileUrl: config.tileUrl || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 

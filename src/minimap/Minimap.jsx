@@ -1,11 +1,28 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
+import { gsap } from 'gsap';
 
 import DraggableMarker from './DraggableMarker';
 
 const Minimap = props => {
 
   const mapRef = useRef();
+
+  useEffect(() => {
+    // Set initial height
+    if (mapRef.current && props.expanded)
+      mapRef.current.container.style.height = props.config.height + 'px'; 
+  }, [mapRef.current]);
+
+  useEffect(() => {
+    const onUpdate = () =>
+      mapRef.current.leafletElement.invalidateSize();
+
+    if (props.expanded)
+      gsap.to(mapRef.current.container, { height: props.config.height, duration: 0.15, onUpdate });
+    else
+      gsap.to(mapRef.current.container, { height: 0, duration: 0.15, onUpdate });
+  }, [props.expanded])
 
   // Default zoom and center
   const [zoom, setZoom] = useState(props.config.defaultZoom);
@@ -18,14 +35,14 @@ const Minimap = props => {
   }
 
   return (
-    <div className="r6o-geotagging-minimap">
+    <div 
+      className="r6o-geotagging-minimap">
       <Map 
         ref={mapRef}
         zoom={zoom}
         preferCanvas={true}
         attributionControl={false}
         center={center}
-        style={{ height:'100%' }}
         onViewportChange={onViewportChange}>
 
         <TileLayer

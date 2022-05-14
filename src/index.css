@@ -1,9 +1,23 @@
 .r6o-geotagging.r6o-widget .r6o-geotagging-toolbar {
-  
+  padding: 10px 5px;
 }
 
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button {
+  background-color: transparent;
+  border: none;
+  color: #4f92d7;
+  cursor: pointer;
+  font-size: 14px;
+  outline: none;
+  text-decoration: underline;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button svg {
+  font-size: 17px;
+  padding-right: 3px;
+  vertical-align: text-bottom;
+}  
 
 .r6o-geotagging.r6o-widget .r6o-geotagging-minimap {
   width: 100%;
-  height: 200px;
 }

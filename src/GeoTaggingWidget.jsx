@@ -27,12 +27,11 @@ const GeoTaggingWidget = props => {
       <Toolbar 
         onShowMinimap={() => setShowMinimap(true)} />
 
-      {showMinimap && 
-        <Minimap 
-          config={props.config}
-          position={position || props.config.defaultOrigin}
-          onDragMarker={onDragMarker} />
-      }
+      <Minimap 
+        config={props.config}
+        expanded={showMinimap}
+        position={position || props.config.defaultOrigin}
+        onDragMarker={onDragMarker} />
     </div>
   )
 
