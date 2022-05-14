@@ -8,6 +8,10 @@ const Minimap = props => {
 
   const mapRef = useRef();
 
+  // Default zoom and center
+  const [zoom, setZoom] = useState(props.config.defaultZoom);
+  const [center, setCenter] = useState(props.position);
+
   useEffect(() => {
     // Set initial height
     if (mapRef.current && props.expanded)
@@ -18,15 +22,14 @@ const Minimap = props => {
     const onUpdate = () =>
       mapRef.current.leafletElement.invalidateSize();
 
-    if (props.expanded)
+    if (props.expanded) {
+      setCenter(props.position);
+      setZoom(props.config.defaultZoom);
       gsap.to(mapRef.current.container, { height: props.config.height, duration: 0.15, onUpdate });
-    else
-      gsap.to(mapRef.current.container, { height: 0, duration: 0.15, onUpdate });
-  }, [props.expanded])
-
-  // Default zoom and center
-  const [zoom, setZoom] = useState(props.config.defaultZoom);
-  const [center, setCenter] = useState(props.position);
+    } else {
+      gsap.to(mapRef.current.container, { height: 0, duration: 0.15, onUpdate, onComplete: props.onClosed });
+    }
+  }, [props.expanded]);
 
   const onViewportChange = () => {
     const { center, zoom } = mapRef.current.viewport;

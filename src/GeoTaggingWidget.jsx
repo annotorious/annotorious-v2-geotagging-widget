@@ -9,15 +9,17 @@ const toBody = (lng, lat) => ({
     type: 'Point',
     coordinates: [ lng, lat ]
   }
-})
+});
+
+const getBody = annotation =>
+  annotation.bodies.find(b => b.purpose === 'geotagging');
 
 const GeoTaggingWidget = props => {
 
   // Marker position (from geotagging body or default)
-  const body = props.annotation.bodies
-    .find(b => b.purpose === 'geotagging');
+  const [body, setBody] = useState(getBody(props.annotation));
   
-  const position = body?.geometry.coordinates.slice().reverse();
+  const [position, setPosition] = useState(body?.geometry.coordinates.slice().reverse());
   
   // If there is already a position, show the mini-map
   const [showMinimap, setShowMinimap] = useState(!!position);
@@ -26,21 +28,34 @@ const GeoTaggingWidget = props => {
     // If there is no geotag body yet, opening the minimap creates one 
     // at the default position
     if (showMinimap && !body) {
-      const [ lat, lng ] = props.config.defaultOrigin;
-      props.onAppendBody(toBody(lng, lat));
+      const [lat, lng] = props.config.defaultOrigin;
+      const defaultBody = toBody(lng, lat);
+
+      setBody(defaultBody);
+      setPosition(props.config.defaultOrigin);
+
+      props.onAppendBody(defaultBody);
     }
 
     // Closing the minimap removes the body
-    if (!showMinimap) {
+    if (!showMinimap)
       props.onRemoveBody(body);
-    }
   }, [showMinimap]);
 
-  const onDragMarker = ({ lat, lng }) =>
-    props.onUpsertBody(toBody(lng, lat));
+  const onMinimapClosed = () => {
+    setBody(null);
+    setPosition(null);
+  }
+
+  const onDragMarker = ({ lat, lng }) => {
+    const updated = toBody(lng, lat);
+    setBody(updated);
+    setPosition([lat,lng]);
+    props.onUpsertBody(updated);
+  }
 
   const onDelete = () => {
-    props.onRemoveBody(body)
+    props.onRemoveBody(body);
     setShowMinimap(false);
   }
 
@@ -55,7 +70,8 @@ const GeoTaggingWidget = props => {
         config={props.config}
         expanded={showMinimap}
         position={position || props.config.defaultOrigin}
-        onDragMarker={onDragMarker} />
+        onDragMarker={onDragMarker} 
+        onClosed={onMinimapClosed} />
     </div>
   )
 
