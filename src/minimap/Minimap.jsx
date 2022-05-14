@@ -23,22 +23,24 @@ const Minimap = props => {
   }
 
   return (
-    <Map 
-      ref={mapRef}
-      zoom={zoom}
-      preferCanvas={true}
-      attributionControl={false}
-      center={center}
-      style={{ height:'100%' }}
-      onViewportChange={onViewportChange}>
+    <div className="r6o-geotagging-minimap">
+      <Map 
+        ref={mapRef}
+        zoom={zoom}
+        preferCanvas={true}
+        attributionControl={false}
+        center={center}
+        style={{ height:'100%' }}
+        onViewportChange={onViewportChange}>
 
-      <TileLayer
-        url={props.config.tileUrl} />
+        <TileLayer
+          url={props.config.tileUrl} />
 
-      <DraggableMarker 
-        position={position}
-        onDragEnd={props.onDragMarker} />
-    </Map>  
+        <DraggableMarker 
+          position={position}
+          onDragEnd={props.onDragMarker} />
+      </Map>  
+    </div>
   )
 
 }

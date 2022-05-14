@@ -1,5 +1,9 @@
-.r6o-geotagging.r6o-widget {
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar {
+  
+}
+
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-minimap {
   width: 100%;
   height: 200px;
-  position: relative;
 }

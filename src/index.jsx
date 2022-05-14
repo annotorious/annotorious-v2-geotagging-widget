@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import L from 'leaflet';
+
+import { createConfig } from './Config';
+import Minimap from './minimap/Minimap';
+import Toolbar from './toolbar/Toolbar';
 
 import './index.css';
 import 'leaflet/dist/leaflet.css';
-
-import Minimap from './minimap/Minimap';
-import { createConfig } from './Config';
 
 L.Icon.Default.mergeOptions({
   iconUrl: 'leaflet/marker-icon.png',
@@ -15,6 +16,8 @@ L.Icon.Default.mergeOptions({
 });
 
 const GeoTaggingPlugin = config => props => {
+
+  const [showMinimap, setShowMinimap] = useState(false);
 
   const onDragMarker = ({ lat, lng }) =>
     props.onUpsertBody({
@@ -27,10 +30,15 @@ const GeoTaggingPlugin = config => props => {
 
   return (
     <div className="r6o-geotagging r6o-widget">
-      <Minimap 
-        config={createConfig(config)}
-        annotation={props.annotation}
-        onDragMarker={onDragMarker} />
+      <Toolbar 
+        onShowMinimap={() => setShowMinimap(true)} />
+
+      {showMinimap && 
+        <Minimap 
+          config={createConfig(config)}
+          annotation={props.annotation}
+          onDragMarker={onDragMarker} />
+      }
     </div>
   )
 
