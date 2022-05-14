@@ -1,13 +1,26 @@
 import React from 'react';
-import { HiOutlineTrash } from 'react-icons/hi';
+import { HiOutlineTrash, HiSearch } from 'react-icons/hi';
+import { MdMoreHoriz } from 'react-icons/md';
 
 const WhenExpanded = props => {
 
   return (
     <div className="r6o-geotagging-toolbar expanded">
-      <button className="r6o-geotagging-delete" onClick={props.onDeleteGeoTag}>
-        <HiOutlineTrash />
-      </button>
+      <div className="r6o-geotagging-toolbar-left">
+        <button className="r6o-geotagging-search">
+          <HiSearch />
+        </button>
+      </div>
+
+      <div className="r6o-geotagging-toolbar-right">
+        <button className="r6o-geotagging-more">
+          <MdMoreHoriz />
+        </button>
+
+        <button className="r6o-geotagging-delete" onClick={props.onDeleteGeoTag}>
+          <HiOutlineTrash />
+        </button>
+      </div>
     </div>
   )
 
