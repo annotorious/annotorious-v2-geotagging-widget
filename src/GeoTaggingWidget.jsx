@@ -5,7 +5,13 @@ import Toolbar from './toolbar/Toolbar';
 
 const GeoTaggingWidget = props => {
 
-  const [showMinimap, setShowMinimap] = useState(false);
+  // Marker position (from geotagging body or default)
+  const position = 
+    props.annotation.bodies
+      .find(b => b.purpose === 'geotagging')?.geometry.coordinates.slice().reverse();
+  
+  // If there is already a position, show the mini-map
+  const [showMinimap, setShowMinimap] = useState(!!position);
 
   const onDragMarker = ({ lat, lng }) =>
     props.onUpsertBody({
@@ -24,7 +30,7 @@ const GeoTaggingWidget = props => {
       {showMinimap && 
         <Minimap 
           config={props.config}
-          annotation={props.annotation}
+          position={position || props.config.defaultOrigin}
           onDragMarker={onDragMarker} />
       }
     </div>
