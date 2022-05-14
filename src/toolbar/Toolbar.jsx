@@ -1,17 +1,8 @@
 import React from 'react';
-import { HiOutlineGlobeAlt } from 'react-icons/hi';
+import WhenCollapsed from './WhenCollapsed';
+import WhenExpanded from './WhenExpanded';
 
-const Toolbar = props => {
-
-  return (
-    <div className="r6o-geotagging-toolbar">
-      <button onClick={props.onShowMinimap}>
-        <HiOutlineGlobeAlt /> 
-        <span>Pick coordinate</span>
-      </button>
-    </div>
-  )
-
-}
+const Toolbar = props => props.isMapExpanded ?
+  <WhenExpanded {...props} /> : <WhenCollapsed {...props} />
 
 export default Toolbar;

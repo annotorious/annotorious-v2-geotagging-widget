@@ -12,11 +12,23 @@
   text-decoration: underline;
 }
 
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button.r6o-geotagging-delete {
+  background-color: #f72c2c;
+  border-radius: 3px;
+  color: #fff;
+  margin-left: 5px;
+  padding: 4px 10px;
+}
+
 .r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button svg {
   font-size: 17px;
   padding-right: 3px;
   vertical-align: text-bottom;
 }  
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button.r6o-geotagging-delete svg {
+  font-size: 18px;
+}
 
 .r6o-geotagging.r6o-widget .r6o-geotagging-minimap {
   width: 100%;
