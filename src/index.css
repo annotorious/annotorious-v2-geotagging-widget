@@ -27,6 +27,15 @@
   vertical-align: text-bottom;
 }
 
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar .r6o-geotagging-toolbar-left input {
+  background-color: #f5f7f7;
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  color: #333;
+  outline: none;
+  padding: 5px;
+}
+
 .r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button.r6o-geotagging-delete {
   background-color: #df0202;
   border-radius: 3px;

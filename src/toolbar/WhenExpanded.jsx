@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { HiOutlineTrash, HiSearch } from 'react-icons/hi';
 import { MdMoreHoriz } from 'react-icons/md';
 
 const WhenExpanded = props => {
+  
+  const elem = useRef();
+
+  useEffect(() => {
+    if (elem.current)
+      elem.current.querySelector('input').focus({ preventScroll: true });
+  }, [elem.current]);
 
   return (
-    <div className="r6o-geotagging-toolbar expanded">
+    <div
+      ref={elem} 
+      className="r6o-geotagging-toolbar expanded">
       <div className="r6o-geotagging-toolbar-left">
-        <button className="r6o-geotagging-search">
+        <button>
           <HiSearch />
         </button>
+
+        <input />
       </div>
 
       <div className="r6o-geotagging-toolbar-right">
