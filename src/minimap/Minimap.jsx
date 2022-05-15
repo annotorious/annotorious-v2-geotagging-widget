@@ -40,6 +40,12 @@ const Minimap = props => {
   const selectCoordinates = () =>
     document.querySelector('.r6o-geotagging-minimap input').select();
 
+  const onClick = evt => {
+    const {latlng} = evt;
+    setLatlon([latlng.lat, latlng.lng]);
+    props.onDragMarker(latlng);
+  }
+
   const onMarkerDragged = latlon => {
     const {lat, lng} = latlon;
     setLatlon([lat, lng]);
@@ -60,6 +66,7 @@ const Minimap = props => {
         preferCanvas={true}
         attributionControl={false}
         center={center}
+        onclick={onClick}
         onViewportChange={onViewportChange}>
 
         <TileLayer
