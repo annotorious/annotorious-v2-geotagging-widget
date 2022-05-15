@@ -5,6 +5,7 @@ import Toolbar from './toolbar/Toolbar';
 
 const toBody = (lng, lat) => ({
   purpose: 'geotagging',
+  type: 'Feature',
   geometry: {
     type: 'Point',
     coordinates: [ lng, lat ]
