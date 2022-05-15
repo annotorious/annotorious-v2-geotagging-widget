@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { HiOutlineTrash, HiSearch } from 'react-icons/hi';
 import { MdMoreHoriz } from 'react-icons/md';
 
+import Search from './Search';
+
 const WhenExpanded = props => {
   
   const elem = useRef();
@@ -20,7 +22,8 @@ const WhenExpanded = props => {
           <HiSearch />
         </button>
 
-        <input />
+        <Search 
+          onSearch={props.onSearch} />
       </div>
 
       <div className="r6o-geotagging-toolbar-right">

@@ -61,12 +61,23 @@ const GeoTaggingWidget = props => {
     setShowMinimap(false);
   }
 
+  const onSearch = result => {
+    const lat = parseFloat(result.lat);
+    const lng = parseFloat(result.lon);
+
+    const updated = toBody(lng, lat);
+    setBody(updated);
+    setPosition([lat,lng]);
+    props.onUpsertBody(updated);
+  }
+
   return (
     <div className="r6o-geotagging r6o-widget">
       <Toolbar 
         isMapExpanded={showMinimap}
         onShowMinimap={() => setShowMinimap(true)}
-        onDeleteGeoTag={onDelete} />
+        onDeleteGeoTag={onDelete} 
+        onSearch={onSearch} />
 
       <Minimap 
         config={props.config}

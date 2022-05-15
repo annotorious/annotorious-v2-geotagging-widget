@@ -27,7 +27,28 @@
   vertical-align: text-bottom;
 }
 
-.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar .r6o-geotagging-toolbar-left input {
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar .r6o-geotagging-toolbar-left .r6o-geotagging-toolbar-search {
+  display: inline;
+  position: relative;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar .rotating {
+  animation: rotation 0.8s infinite linear;
+  position: absolute;
+  right: 5px;
+  top: 1px;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar .r6o-geotagging-toolbar-left .r6o-geotagging-toolbar-search input {
   background-color: #f5f7f7;
   border: 1px solid #e5e5e5;
   border-radius: 2px;

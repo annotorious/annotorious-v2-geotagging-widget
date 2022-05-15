@@ -37,6 +37,11 @@ const Minimap = props => {
     }
   }, [props.expanded]);
 
+  useEffect(() => {
+    setCenter(props.position);
+    setLatlon(props.position);
+  }, [props.position])
+
   const selectCoordinates = () =>
     document.querySelector('.r6o-geotagging-minimap input').select();
 
