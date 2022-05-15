@@ -1,0 +1,26 @@
+[{
+  "type": "Annotation",
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "#0d2d01a3-a07c-4dbc-804d-9f6aa32481ef",
+  "body": [
+    {
+      "purpose": "geotagging",
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.23437500000001,
+          -10.574222078332806
+        ]
+      }
+    }
+  ],
+  "target": {
+    "source": "http://localhost:3000/Epitome_theatri_Ortelianii.jpg",
+    "selector": {
+      "type": "FragmentSelector",
+      "conformsTo": "http://www.w3.org/TR/media-frags/",
+      "value": "xywh=pixel:589,284,54,85"
+    }
+  }
+}]

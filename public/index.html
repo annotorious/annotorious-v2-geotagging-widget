@@ -40,7 +40,9 @@
 
         anno.on('deleteAnnotation', function(annotation) {
           console.log('deleted', annotation);
-        });        
+        });    
+        
+        anno.loadAnnotations('annotations.w3c.json');
       }
     </script>
   </body>
