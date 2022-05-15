@@ -31,7 +31,9 @@ const Minimap = props => {
       setZoom(props.config.defaultZoom);
       gsap.to(mapRef.current.container, { height: props.config.height, duration: 0.15, onUpdate });
     } else {
-      gsap.to(mapRef.current.container, { height: 0, duration: 0.15, onUpdate, onComplete: props.onClosed });
+      const currentHeight = mapRef.current.container.offsetHeight;
+      if (currentHeight > 0)
+        gsap.to(mapRef.current.container, { height: 0, duration: 0.15, onUpdate, onComplete: props.onClosed });
     }
   }, [props.expanded]);
 
@@ -40,7 +42,7 @@ const Minimap = props => {
 
   const onMarkerDragged = latlon => {
     const {lat, lng} = latlon;
-    setLatlon([lat.toFixed(5), lng.toFixed(5)]);
+    setLatlon([lat, lng]);
   };
 
   const onViewportChange = () => {
@@ -72,7 +74,7 @@ const Minimap = props => {
       <div className="r6o-geotagging-minimap-overlay">
         <input 
           onClick={selectCoordinates}
-          value={latlon.join(', ')} />
+          value={latlon[1].toFixed(5) + ', ' + latlon[0].toFixed(5)} />
       </div>
     </div>
   )

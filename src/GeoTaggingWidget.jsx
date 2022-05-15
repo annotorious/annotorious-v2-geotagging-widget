@@ -35,12 +35,12 @@ const GeoTaggingWidget = props => {
       setBody(defaultBody);
       setPosition(props.config.defaultOrigin);
 
-      props.onAppendBody(defaultBody);
+      props.onUpsertBody(defaultBody);
     }
 
     // Closing the minimap removes the body
-    if (!showMinimap)
-      props.onRemoveBody(body);
+    // if (!showMinimap)
+    //  props.onRemoveBody(body);
   }, [showMinimap]);
 
   const onMinimapClosed = () => {
@@ -56,6 +56,7 @@ const GeoTaggingWidget = props => {
   }
 
   const onDelete = () => {
+    const body = getBody(props.annotation);
     props.onRemoveBody(body);
     setShowMinimap(false);
   }
