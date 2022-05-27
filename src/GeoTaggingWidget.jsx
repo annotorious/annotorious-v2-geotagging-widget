@@ -19,6 +19,8 @@ const GeoTaggingWidget = props => {
 
   // Marker position (from geotagging body or default)
   const [body, setBody] = useState(getBody(props.annotation));
+
+  const [quote, setQuote] = useState();
   
   const [position, setPosition] = useState(body?.geometry.coordinates.slice().reverse());
   
@@ -39,8 +41,11 @@ const GeoTaggingWidget = props => {
     }
 
     // Closing the minimap removes the body
-    // if (!showMinimap)
-    //  props.onRemoveBody(body);
+    if (!showMinimap)
+      props.onRemoveBody(body);
+
+    // Will be null for image annotations
+    setQuote(props.annotation.quote);
   }, [showMinimap]);
 
   const onMinimapClosed = () => {
@@ -75,6 +80,7 @@ const GeoTaggingWidget = props => {
     <div className="r6o-geotagging r6o-widget">
       <Toolbar 
         isMapExpanded={showMinimap}
+        quote={quote}
         onShowMinimap={() => setShowMinimap(true)}
         onDeleteGeoTag={onDelete} 
         onSearch={onSearch} />
