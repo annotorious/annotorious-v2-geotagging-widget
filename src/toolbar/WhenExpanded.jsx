@@ -23,6 +23,7 @@ const WhenExpanded = props => {
         </button>
 
         <Search 
+          config={props.config}
           quote={props.quote}
           onSearch={props.onSearch} />
       </div>

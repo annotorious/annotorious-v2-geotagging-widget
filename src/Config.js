@@ -9,5 +9,7 @@ export const createConfig = config => ({
   defaultOrigin: config.defaultOrigin || [0, 0],
 
   // Default map zoom
-  defaultZoom: config.defaultZoom || 7
-})
+  defaultZoom: config.defaultZoom || 7,
+
+  search: config.search
+});

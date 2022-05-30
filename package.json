@@ -44,6 +44,7 @@
   "dependencies": {
     "@geoman-io/leaflet-geoman-free": "^2.12.0",
     "@recogito/recogito-client-core": "^1.7.2",
+    "@turf/bbox": "^6.5.0",
     "gsap": "^3.10.4",
     "leaflet": "^1.8.0",
     "react-icons": "^4.3.1",

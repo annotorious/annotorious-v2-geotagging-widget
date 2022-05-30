@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { CgSpinnerAlt } from 'react-icons/cg';
 
+import BUILTIN_ENDPOINTS from './SearchEndpoints';
+
+const getEndpoint = config => {
+  if (typeof config === 'string') {
+    const builtin = BUILTIN_ENDPOINTS[config.toLowerCase()];
+    if (builtin) 
+      return builtin;
+    else 
+      throw new Error(`${config} is not a known built-in endpoint`);
+  } else {
+    return config || BUILTIN_ENDPOINTS['osm'];
+  }
+}
+
 const Search = props => {
 
   const [loading, setLoading] = useState(false);
@@ -10,11 +24,11 @@ const Search = props => {
   const query = () => {
     setLoading(true);
 
-    fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(search)}&format=json&polygon_geojson=1`)
-      .then(res => res.json())
-      .then(data => {
+    const searchEndpoint = getEndpoint(props.config.search);
+    searchEndpoint(search)
+      .then(result => {
         setLoading(false);
-        props.onSearch(data[0])
+        props.onSearch(result);
       });
   }
 
