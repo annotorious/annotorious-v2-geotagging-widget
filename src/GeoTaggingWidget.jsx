@@ -62,9 +62,14 @@ const GeoTaggingWidget = props => {
   }
 
   const onSearch = feature => {
-    const updated = toBody(feature);
-    setBody(updated);
-    props.onUpsertBody(updated);
+    if (feature) {
+      const updated = toBody(feature);
+      setBody(updated);
+      props.onUpsertBody(updated);
+    } else {
+      // TODO
+      console.log('No result found');
+    }
   }
 
   return (

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 import { gsap } from 'gsap';
 import centroid from '@turf/centroid';
+import bbox from '@turf/bbox';
 
 import DraggableMarker from './DraggableMarker';
 
@@ -16,6 +17,16 @@ const toPointFeature = (lon, lat) => ({
     coordinates: [ lon, lat ]
   }
 });
+
+const isFeatureEqual = (a, b) => {
+  if (a.geometry?.type !== b.geometry?.type)
+    return false;
+
+  if (a.geometry?.coordinates !== b.geometry?.coordinates)
+    return false;
+
+  return true;
+}
 
 const Minimap = props => {
 
@@ -51,6 +62,21 @@ const Minimap = props => {
         gsap.to(mapRef.current.container, { height: 0, duration: 0.15, onUpdate, onComplete: props.onClosed });
     }
   }, [props.expanded]);
+  
+  useEffect(() => {
+    // Only update for external changes (search!)
+    if (!isFeatureEqual(props.feature, feature)) {
+      // Update feature and map state
+      setFeature(props.feature);
+      setCenter(getCentroid(props.feature));
+
+      const bounds = bbox(props.feature);
+      mapRef.current.leafletElement.fitBounds([
+        [bounds[1], bounds[0]],
+        [bounds[3], bounds[2]]
+      ], { maxZoom: props.config.defaultZoom });
+    }
+  }, [props.feature]);
 
   const onClick = evt => {
     const {latlng} = evt;
