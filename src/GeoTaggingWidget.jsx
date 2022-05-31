@@ -61,9 +61,13 @@ const GeoTaggingWidget = props => {
     setShowMinimap(false);
   }
 
-  const onSearch = feature => {
-    if (feature) {
-      const updated = toBody(feature);
+  const onSearch = result => {
+    if (result) {
+      const updated = {
+        ...toBody(result),
+        source: result.uri 
+      };
+
       setBody(updated);
       props.onUpsertBody(updated);
     } else {
