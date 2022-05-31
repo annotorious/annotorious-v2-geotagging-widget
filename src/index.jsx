@@ -5,13 +5,19 @@ import { createConfig } from './Config';
 
 import './index.css';
 import 'leaflet/dist/leaflet.css';
+
+import MarkerIcon from '../public/leaflet/marker-icon.png';
+import MarkerShadow from '../public/leaflet/marker-shadow.png';
+import MarkerIcon2x from '../public/leaflet/marker-icon-2x.png';
+import MarkerShadow2x from '../public/leaflet/marker-shadow-2x.png';
+
 import GeoTaggingWidget from './GeoTaggingWidget';
 
 L.Icon.Default.mergeOptions({
-  iconUrl: 'leaflet/marker-icon.png',
-  shadowUrl: 'leaflet/marker-shadow.png',
-  iconRetinaUrl: 'leaflet/marker-icon-2x.png',
-  shadowRetinaUrl: 'leaflet/marker-shadow-2x.png'
+  iconUrl: MarkerIcon,
+  shadowUrl: MarkerShadow,
+  iconRetinaUrl: MarkerIcon2x,
+  shadowRetinaUrl: MarkerShadow2x
 });
 
 const GeoTaggingPlugin = config => props =>
