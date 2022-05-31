@@ -44,7 +44,7 @@ file in your webpage. You can also get the script files directly from the CDN:
     <script src="https://cdn.jsdelivr.net/npm/@recogito/annotorious@latest/dist/annotorious.min.js"></script>
 
     <!-- Geotagging Widget -->
-    <script src="https://cdn.jsdelivr.net/npm/@recogito/geotagging-widget@latest/dist/geotagging-widget.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@recogito/geotagging-widget@latest"></script>
   </head>
   
   <body>
@@ -54,19 +54,20 @@ file in your webpage. You can also get the script files directly from the CDN:
     <script>
       (function() {
         var anno = Annotorious.init({
-          image: 'hallstatt'
+          image: 'hallstatt',
+            widgets: [
+            { widget: recogito.GeoTagging({}) },
+            'COMMENT'
+          ]
         });
-
-        anno.loadAnnotations('annotations.w3c.json');
       })()
     </script>
-    <script type="text/javascript" src="annotorious.min.js"></script>
   </body>
 </html>
 ```
 ## License
 
-[BSD-3 Clause](https://github.com/recogito/geotagging-widget/blob/main/LICENSE)
+[BSD 3-Clause](https://github.com/recogito/geotagging-widget/blob/main/LICENSE)
 
 ## Acknowledgements
 
