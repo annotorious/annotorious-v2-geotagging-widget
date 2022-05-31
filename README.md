@@ -53,10 +53,14 @@ file in your webpage. You can also get the script files directly from the CDN:
     </div>
     <script>
       (function() {
+        var config = {
+          defaultOrigin: [ 48, 16 ]
+        };
+
         var anno = Annotorious.init({
           image: 'hallstatt',
             widgets: [
-            { widget: recogito.GeoTagging({}) },
+            { widget: recogito.GeoTagging(config) },
             'COMMENT'
           ]
         });
