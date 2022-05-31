@@ -1,19 +1,36 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 import { gsap } from 'gsap';
+import centroid from '@turf/centroid';
 
 import DraggableMarker from './DraggableMarker';
+
+const getCentroid = feature =>
+  centroid(feature)?.geometry.coordinates.slice().reverse();
+
+const toPointFeature = (lon, lat) => ({
+  type: 'Feature',
+  properties: {},
+  geometry: {
+    type: 'Point',
+    coordinates: [ lon, lat ]
+  }
+});
 
 const Minimap = props => {
 
   const mapRef = useRef();
 
-  // Default zoom and center
   const [zoom, setZoom] = useState(props.config.defaultZoom);
-  const [center, setCenter] = useState(props.position);
+  const [center, setCenter] = useState(getCentroid(props.feature));
 
-  // Lat/lon log
-  const [latlon, setLatlon] = useState(props.position);
+  const [feature, setFeature] = useState(props.feature);
+  const [centroid, setCentroid] = useState(getCentroid(props.feature));
+
+  useEffect(() => {
+    // Update the centroid whenever the feature changes
+    setCentroid(getCentroid(feature));
+  }, [feature]);
 
   useEffect(() => {
     // Set initial height
@@ -26,9 +43,7 @@ const Minimap = props => {
       mapRef.current.leafletElement.invalidateSize();
 
     if (props.expanded) {
-      setCenter(props.position);
-      setLatlon(props.position);
-      setZoom(props.config.defaultZoom);
+      setFeature(props.feature);
       gsap.to(mapRef.current.container, { height: props.config.height, duration: 0.15, onUpdate });
     } else {
       const currentHeight = mapRef.current.container.offsetHeight;
@@ -37,23 +52,19 @@ const Minimap = props => {
     }
   }, [props.expanded]);
 
-  useEffect(() => {
-    setCenter(props.position);
-    setLatlon(props.position);
-  }, [props.position])
-
-  const selectCoordinates = () =>
-    document.querySelector('.r6o-geotagging-minimap input').select();
-
   const onClick = evt => {
     const {latlng} = evt;
-    setLatlon([latlng.lat, latlng.lng]);
-    props.onDragMarker(latlng);
+    const pointFeature = toPointFeature(latlng.lng, latlng.lat);
+
+    setFeature(pointFeature);
+    props.onChangeFeature(pointFeature);
   }
 
   const onMarkerDragged = latlon => {
     const {lat, lng} = latlon;
-    setLatlon([lat, lng]);
+    const pointFeature = toPointFeature(lng, lat);
+    setFeature(pointFeature);
+    props.onChangeFeature(pointFeature);
   };
 
   const onViewportChange = () => {
@@ -61,6 +72,9 @@ const Minimap = props => {
     setCenter(center);
     setZoom(zoom);
   };
+
+  const selectCoordinates = () =>
+    document.querySelector('.r6o-geotagging-minimap input').select();
 
   return (
     <div 
@@ -78,15 +92,15 @@ const Minimap = props => {
           url={props.config.tileUrl} />
 
         <DraggableMarker 
-          position={props.position}
+          position={centroid}
           onDrag={onMarkerDragged}
-          onDragEnd={props.onDragMarker} />
+          onDragEnd={onMarkerDragged} />
       </Map>  
 
       <div className="r6o-geotagging-minimap-overlay">
         <input 
           onClick={selectCoordinates}
-          value={latlon[1].toFixed(5) + ', ' + latlon[0].toFixed(5)} />
+          value={centroid[1].toFixed(5) + ', ' + centroid[0].toFixed(5)} />
       </div>
     </div>
   )

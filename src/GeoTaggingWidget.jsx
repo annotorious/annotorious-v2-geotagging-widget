@@ -3,13 +3,10 @@ import React, { useEffect, useState } from 'react';
 import Minimap from './minimap/Minimap';
 import Toolbar from './toolbar/Toolbar';
 
-const toBody = (lng, lat) => ({
+const toBody = feature => ({
   purpose: 'geotagging',
   type: 'Feature',
-  geometry: {
-    type: 'Point',
-    coordinates: [ lng, lat ]
-  }
+  geometry: feature.geometry
 });
 
 const getBody = annotation =>
@@ -17,26 +14,27 @@ const getBody = annotation =>
 
 const GeoTaggingWidget = props => {
 
-  // Marker position (from geotagging body or default)
   const [body, setBody] = useState(getBody(props.annotation));
 
   const [quote, setQuote] = useState();
   
-  const [position, setPosition] = useState(body?.geometry.coordinates.slice().reverse());
-  
-  // If there is already a position, show the mini-map
-  const [showMinimap, setShowMinimap] = useState(!!position);
+  // If there is already a displayed feature, show the mini-map
+  const [showMinimap, setShowMinimap] = useState(!!body?.geometry);
 
   useEffect(() => {
-    // If there is no geotag body yet, opening the minimap creates one 
-    // at the default position
+    // If there is no geotag body yet, opening the minimap 
+    // will create one at the configured default origin
     if (showMinimap && !body) {
       const [lat, lng] = props.config.defaultOrigin;
-      const defaultBody = toBody(lng, lat);
+
+      const defaultBody = toBody({
+        geometry: {
+          type: 'Point',
+          coordinates: [ lng, lat ]
+        }
+      });
 
       setBody(defaultBody);
-      setPosition(props.config.defaultOrigin);
-
       props.onUpsertBody(defaultBody);
     }
 
@@ -44,19 +42,16 @@ const GeoTaggingWidget = props => {
     if (!showMinimap)
       props.onRemoveBody(body);
 
-    // Will be null for image annotations
+    // Selected text snippet for RecogitoJS (will be null in Annotorious)
     setQuote(props.annotation.quote);
   }, [showMinimap]);
 
-  const onMinimapClosed = () => {
+  const onMinimapClosed = () =>
     setBody(null);
-    setPosition(null);
-  }
 
-  const onDragMarker = ({ lat, lng }) => {
-    const updated = toBody(lng, lat);
+  const onChangeFeature = feature => {
+    const updated = toBody(feature);
     setBody(updated);
-    setPosition([lat,lng]);
     props.onUpsertBody(updated);
   }
 
@@ -66,12 +61,9 @@ const GeoTaggingWidget = props => {
     setShowMinimap(false);
   }
 
-  // Search expects a result of { lat, lng, uri? }
-  const onSearch = result => {
-    const { lng, lat } = result;
-    const updated = toBody(lng, lat);
+  const onSearch = feature => {
+    const updated = toBody(feature);
     setBody(updated);
-    setPosition([lat,lng]);
     props.onUpsertBody(updated);
   }
 
@@ -85,12 +77,13 @@ const GeoTaggingWidget = props => {
         onDeleteGeoTag={onDelete} 
         onSearch={onSearch} />
 
-      <Minimap 
+      {body && <Minimap 
         config={props.config}
         expanded={showMinimap}
-        position={position || props.config.defaultOrigin}
-        onDragMarker={onDragMarker} 
+        feature={body}
+        onChangeFeature={onChangeFeature} 
         onClosed={onMinimapClosed} />
+      }
     </div>
   )
 
