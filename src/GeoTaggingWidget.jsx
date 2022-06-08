@@ -21,7 +21,6 @@ const GeoTaggingWidget = props => {
 
   const [advancedEditing, setAdvancedEditing] = useState(false);
   
-  // If there is already a displayed feature, show the mini-map
   const [showMinimap, setShowMinimap] = useState(!!body?.geometry);
 
   useEffect(() => {
@@ -79,6 +78,13 @@ const GeoTaggingWidget = props => {
     }
   }
 
+  const onCloseAdvanced = feature => {
+    if (feature)
+      onChangeFeature(feature);
+
+    setAdvancedEditing(false);
+  }
+
   return (
     <div className="r6o-geotagging r6o-widget">
       <Toolbar 
@@ -103,8 +109,8 @@ const GeoTaggingWidget = props => {
           config={props.config}
           quote={quote}
           feature={body}
-          onOk={onChangeFeature}
-          onCancel={() => setAdvancedEditing(false)} />
+          onOk={onCloseAdvanced}
+          onCancel={onCloseAdvanced} />
       }
     </div>
   )

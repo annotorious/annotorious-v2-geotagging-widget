@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Map, TileLayer } from 'react-leaflet';
+import { GeoJSON, Map, TileLayer } from 'react-leaflet';
 import { gsap } from 'gsap';
 import centroid from '@turf/centroid';
 import bbox from '@turf/bbox';
@@ -37,12 +37,9 @@ const Minimap = props => {
   const [center, setCenter] = useState(getCentroid(props.feature));
 
   const [feature, setFeature] = useState(props.feature);
-  const [centroid, setCentroid] = useState(getCentroid(props.feature));
 
-  useEffect(() => {
-    // Update the centroid whenever the feature changes
-    setCentroid(getCentroid(feature));
-  }, [feature]);
+  const isPoint = feature?.geometry?.type === 'Point';
+  const centroid = isPoint && feature.geometry.coordinates.slice().reverse();
 
   useEffect(() => {
     // Set initial height
@@ -119,16 +116,23 @@ const Minimap = props => {
         <TileLayer
           url={props.config.tileUrl} />
 
-        <DraggableMarker 
-          position={centroid}
-          onDrag={onMarkerDragged}
-          onDragEnd={onMarkerDragged} />
+        {isPoint ? 
+          <DraggableMarker 
+            position={centroid}
+            onDrag={onMarkerDragged}
+            onDragEnd={onMarkerDragged} /> : 
+          
+          <GeoJSON
+            data={feature} />
+        }
       </Map>  
 
       <div className="r6o-geotagging-minimap-overlay">
-        <input 
-          onClick={selectCoordinates}
-          value={centroid[1].toFixed(5) + ', ' + centroid[0].toFixed(5)} />
+        {isPoint &&
+          <input 
+            onClick={selectCoordinates}
+            value={centroid[1].toFixed(5) + ', ' + centroid[0].toFixed(5)} />
+        }
       </div>
     </div>
   )

@@ -13,8 +13,8 @@ const AdvancedModal = props => {
 
   const mapRef = useRef();
 
-  const [zoom, setZoom] = useState(props.config.defaultZoom);
-  const [center, setCenter] = useState(getCentroid(props.feature));
+  const [zoom, ] = useState(props.config.defaultZoom);
+  const [center, ] = useState(getCentroid(props.feature));
   
   useEffect(() => {
     if (mapRef.current) {
