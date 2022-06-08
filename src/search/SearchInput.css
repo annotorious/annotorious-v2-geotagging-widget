@@ -1,0 +1,29 @@
+.r6o-geotagging-search {
+  display: inline;
+  position: relative;
+}
+
+.r6o-geotagging-search .rotating {
+  animation: rotation 0.8s infinite linear;
+  position: absolute;
+  right: 5px;
+  top: 1px;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.r6o-geotagging-search input {
+  background-color: #f5f7f7;
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  color: #333;
+  outline: none;
+  padding: 5px;
+}

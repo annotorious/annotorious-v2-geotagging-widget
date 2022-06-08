@@ -6,6 +6,7 @@ import bbox from '@turf/bbox';
 
 import DraggableMarker from './DraggableMarker';
 
+// Shorthand
 const getCentroid = feature =>
   centroid(feature)?.geometry.coordinates.slice().reverse();
 
@@ -45,8 +46,9 @@ const Minimap = props => {
 
   useEffect(() => {
     // Set initial height
-    if (mapRef.current && props.expanded)
-      mapRef.current.container.style.height = props.config.height + 'px'; 
+    if (mapRef.current && props.expanded) {
+      mapRef.current.container.style.height = props.config.height + 'px';
+    }
   }, [mapRef.current]);
 
   useEffect(() => {

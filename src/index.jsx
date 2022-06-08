@@ -1,10 +1,15 @@
 import React from 'react';
 import L from 'leaflet';
+import '@geoman-io/leaflet-geoman-free';  
 
 import { createConfig } from './Config';
 
 import './index.css';
+import './advanced/AdvancedModal.css';
+import './search/SearchInput.css';
+
 import 'leaflet/dist/leaflet.css';
+import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  
 
 import MarkerIcon from '../public/leaflet/marker-icon.png';
 import MarkerShadow from '../public/leaflet/marker-shadow.png';

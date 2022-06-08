@@ -15,7 +15,7 @@ const getEndpoint = config => {
   }
 }
 
-const Search = props => {
+const SearchInput = props => {
 
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +43,7 @@ const Search = props => {
   }
 
   return (
-    <div className="r6o-geotagging-toolbar-search">
+    <div className="r6o-geotagging-search">
       <input 
         placeholder="Search for a place..."
         value={search}
@@ -58,4 +58,4 @@ const Search = props => {
 
 }
 
-export default Search;
+export default SearchInput;

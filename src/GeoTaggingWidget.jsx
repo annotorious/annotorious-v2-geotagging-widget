@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import AdvancedModal from './advanced/AdvancedModal';
 import Minimap from './minimap/Minimap';
 import Toolbar from './toolbar/Toolbar';
 
@@ -17,6 +18,8 @@ const GeoTaggingWidget = props => {
   const [body, setBody] = useState(getBody(props.annotation));
 
   const [quote, setQuote] = useState();
+
+  const [advancedEditing, setAdvancedEditing] = useState(false);
   
   // If there is already a displayed feature, show the mini-map
   const [showMinimap, setShowMinimap] = useState(!!body?.geometry);
@@ -84,7 +87,8 @@ const GeoTaggingWidget = props => {
         quote={quote}
         onShowMinimap={() => setShowMinimap(true)}
         onDeleteGeoTag={onDelete} 
-        onSearch={onSearch} />
+        onSearch={onSearch} 
+        onGoAdvanced={() => setAdvancedEditing(true)} />
 
       {body && <Minimap 
         config={props.config}
@@ -92,6 +96,14 @@ const GeoTaggingWidget = props => {
         feature={body}
         onChangeFeature={onChangeFeature} 
         onClosed={onMinimapClosed} />
+      }
+
+      {advancedEditing &&
+        <AdvancedModal 
+          config={props.config}
+          quote={quote}
+          feature={body}
+          onSearch={onSearch} />
       }
     </div>
   )

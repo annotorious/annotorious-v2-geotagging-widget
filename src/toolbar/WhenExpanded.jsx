@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { HiOutlineTrash, HiSearch } from 'react-icons/hi';
 import { MdMoreHoriz } from 'react-icons/md';
 
-import Search from './Search';
+import SearchInput from '../search/SearchInput';
 
 const WhenExpanded = props => {
   
@@ -22,14 +22,14 @@ const WhenExpanded = props => {
           <HiSearch />
         </button>
 
-        <Search 
+        <SearchInput 
           config={props.config}
           quote={props.quote}
           onSearch={props.onSearch} />
       </div>
 
       <div className="r6o-geotagging-toolbar-right">
-        <button className="r6o-geotagging-more">
+        <button className="r6o-geotagging-more" onClick={props.onGoAdvanced}>
           <MdMoreHoriz />
         </button>
 
