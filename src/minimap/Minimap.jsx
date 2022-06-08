@@ -78,11 +78,13 @@ const Minimap = props => {
   }, [props.feature]);
 
   const onClick = evt => {
-    const {latlng} = evt;
-    const pointFeature = toPointFeature(latlng.lng, latlng.lat);
+    if (isPoint) {
+      const {latlng} = evt;
+      const pointFeature = toPointFeature(latlng.lng, latlng.lat);
 
-    setFeature(pointFeature);
-    props.onChangeFeature(pointFeature);
+      setFeature(pointFeature);
+      props.onChangeFeature(pointFeature);
+    }
   }
 
   const onMarkerDragged = latlon => {
