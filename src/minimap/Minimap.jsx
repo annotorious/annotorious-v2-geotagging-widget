@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { GeoJSON, Map, TileLayer } from 'react-leaflet';
 import { gsap } from 'gsap';
 import centroid from '@turf/centroid';
@@ -6,7 +6,6 @@ import bbox from '@turf/bbox';
 
 import DraggableMarker from './DraggableMarker';
 
-// Shorthand
 const getCentroid = feature =>
   centroid(feature)?.geometry.coordinates.slice().reverse();
 
@@ -29,22 +28,35 @@ const isFeatureEqual = (a, b) => {
   return true;
 }
 
+const isPoint = feature =>
+  feature?.geometry?.type === 'Point';
+
 const Minimap = props => {
 
   const mapRef = useRef();
 
-  const [zoom, setZoom] = useState(props.config.defaultZoom);
-  const [center, setCenter] = useState(getCentroid(props.feature));
-
   const [feature, setFeature] = useState(props.feature);
+  const centroid = useMemo(() => isPoint(feature) ? getCentroid(feature) : null);
 
-  const isPoint = feature?.geometry?.type === 'Point';
-  const centroid = isPoint && feature.geometry.coordinates.slice().reverse();
+  const fitMap = feature => {
+    const map = mapRef.current.leafletElement;
+    const maxZoom = props.config.defaultZoom;
+
+    if (isPoint(feature)) {
+      map.setView(getCentroid(feature), maxZoom);
+    } else {
+      const bounds = bbox(feature);
+      map.fitBounds([
+        [bounds[1], bounds[0]],
+        [bounds[3], bounds[2]]
+      ]);  
+    }
+  }
 
   useEffect(() => {
-    // Set initial height
     if (mapRef.current && props.expanded) {
       mapRef.current.container.style.height = props.config.height + 'px';
+      fitMap(props.feature);
     }
   }, [mapRef.current]);
 
@@ -52,9 +64,12 @@ const Minimap = props => {
     const onUpdate = () =>
       mapRef.current.leafletElement.invalidateSize();
 
+    const onComplete = () => 
+      fitMap(props.feature);
+
     if (props.expanded) {
       setFeature(props.feature);
-      gsap.to(mapRef.current.container, { height: props.config.height, duration: 0.15, onUpdate });
+      gsap.to(mapRef.current.container, { height: props.config.height, duration: 0.15, onUpdate, onComplete });
     } else {
       const currentHeight = mapRef.current.container.offsetHeight;
       if (currentHeight > 0)
@@ -65,20 +80,13 @@ const Minimap = props => {
   useEffect(() => {
     // Only update for external changes (search!)
     if (!isFeatureEqual(props.feature, feature)) {
-      // Update feature and map state
       setFeature(props.feature);
-      setCenter(getCentroid(props.feature));
-
-      const bounds = bbox(props.feature);
-      mapRef.current.leafletElement.fitBounds([
-        [bounds[1], bounds[0]],
-        [bounds[3], bounds[2]]
-      ], { maxZoom: props.config.defaultZoom });
+      fitMap(props.feature);
     }
   }, [props.feature]);
 
   const onClick = evt => {
-    if (isPoint) {
+    if (isPoint(feature)) {
       const {latlng} = evt;
       const pointFeature = toPointFeature(latlng.lng, latlng.lat);
 
@@ -94,12 +102,6 @@ const Minimap = props => {
     props.onChangeFeature(pointFeature);
   };
 
-  const onViewportChange = () => {
-    const { center, zoom } = mapRef.current.viewport;
-    setCenter(center);
-    setZoom(zoom);
-  };
-
   const selectCoordinates = () =>
     document.querySelector('.r6o-geotagging-minimap input').select();
 
@@ -108,29 +110,30 @@ const Minimap = props => {
       className="r6o-geotagging-minimap">
       <Map 
         ref={mapRef}
-        zoom={zoom}
         preferCanvas={true}
         attributionControl={false}
-        center={center}
-        onclick={onClick}
-        onViewportChange={onViewportChange}>
+        onclick={onClick}>
 
         <TileLayer
+          id="r6o-baselayer"
           url={props.config.tileUrl} />
 
-        {isPoint ? 
+        {isPoint(feature) ?
           <DraggableMarker 
             position={centroid}
             onDrag={onMarkerDragged}
-            onDragEnd={onMarkerDragged} /> : 
+            onDragEnd={onMarkerDragged} />
+
+          :
           
-          <GeoJSON
+          <GeoJSON 
+            key={Math.random().toString(36).slice(2)}
             data={feature} />
         }
       </Map>  
 
       <div className="r6o-geotagging-minimap-overlay">
-        {isPoint &&
+        {centroid &&
           <input 
             onClick={selectCoordinates}
             value={centroid[1].toFixed(5) + ', ' + centroid[0].toFixed(5)} />

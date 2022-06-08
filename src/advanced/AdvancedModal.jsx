@@ -20,10 +20,8 @@ const AdvancedModal = props => {
     if (mapRef.current) {
       const map = mapRef.current.leafletElement;
 
-      if (props.feature) {
-        console.log(props.feature);
+      if (props.feature)
         L.geoJSON(props.feature).addTo(map);
-      }
 
       map.pm.addControls({ 
         position: 'topleft',
