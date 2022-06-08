@@ -18,8 +18,12 @@ const AdvancedModal = props => {
   
   useEffect(() => {
     if (mapRef.current) {
-      mapRef.current.leafletElement.pm.addControls({  
-        position: 'topleft'
+      const map = mapRef.current.leafletElement;
+
+      map.pm.addControls({ position: 'topleft' });
+
+      map.on('pm:create', evt => {
+        console.log(evt);
       });
     }
   }, [mapRef.current]);
