@@ -20,13 +20,37 @@ const AdvancedModal = props => {
     if (mapRef.current) {
       const map = mapRef.current.leafletElement;
 
-      map.pm.addControls({ position: 'topleft' });
-
-      map.on('pm:create', evt => {
-        console.log(evt);
+      map.pm.addControls({ 
+        position: 'topleft',
+        drawCircle: false,
+        drawCircleMarker: false 
       });
     }
   }, [mapRef.current]);
+
+  const onOk = () => {
+    const geojson = 
+      mapRef.current.leafletElement.pm
+        .getGeomanLayers()
+        .map(l =>  l.toGeoJSON());
+
+    if (geojson.length === 1) {
+      props.onOk({
+        type: 'Feature',
+        geometry: geojson[0].geometry,
+      });
+    } else if (geojson.length > 1) {
+      props.onOk({
+        type: 'Feature',
+        geometry: {
+          type: 'GeometryCollection',
+          geometries: geojson.map(g => g.geometry)
+        }
+      });
+    } else {
+      // TODO
+    }
+  }
 
   return ReactDOM.createPortal(
     <div className="r6o-geotagging-advanced-container">
@@ -36,6 +60,9 @@ const AdvancedModal = props => {
             config={props.config}
             quote={props.quote}
             onSearch={props.onSearch} />
+
+          <button onClick={onOk}>Ok</button>
+          <button onClick={props.onCancel}>Cancel</button>
         </header>
 
         <main>

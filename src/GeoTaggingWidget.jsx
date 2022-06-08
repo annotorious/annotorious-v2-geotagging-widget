@@ -103,7 +103,8 @@ const GeoTaggingWidget = props => {
           config={props.config}
           quote={quote}
           feature={body}
-          onSearch={onSearch} />
+          onOk={onChangeFeature}
+          onCancel={() => setAdvancedEditing(false)} />
       }
     </div>
   )
