@@ -58,7 +58,7 @@ const Minimap = props => {
       mapRef.current.container.style.height = props.config.height + 'px';
       fitMap(props.feature);
     }
-  }, [mapRef.current]);
+  }, []);
 
   useEffect(() => {
     const onUpdate = () =>
