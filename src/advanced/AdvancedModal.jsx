@@ -64,8 +64,10 @@ const AdvancedModal = props => {
             quote={props.quote}
             onSearch={props.onSearch} />
 
-          <button onClick={onOk}>Ok</button>
-          <button onClick={props.onCancel}>Cancel</button>
+          <div className="r6o-geotagging-advanced-modal-header-button">
+            <button onClick={onOk}>Ok</button>
+            <button onClick={props.onCancel}>Cancel</button>
+          </div>
         </header>
 
         <main>

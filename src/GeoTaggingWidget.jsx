@@ -49,8 +49,7 @@ const GeoTaggingWidget = props => {
     setQuote(props.annotation.quote);
   }, [showMinimap]);
 
-  const onMinimapClosed = () =>
-    setBody(null);
+  const onMinimapClosed = () => setBody(null);
 
   const onChangeFeature = feature => {
     const updated = toBody(feature);
@@ -63,6 +62,14 @@ const GeoTaggingWidget = props => {
     props.onRemoveBody(body);
     setShowMinimap(false);
   }
+
+  const onAdvacedEditingDone = feature => {
+    onChangeFeature(feature);
+    setAdvancedEditing(false);
+  }
+
+  const onAdvacedEditingCanceled = () =>
+    setAdvancedEditing(false);
 
   const onSearch = result => {
     if (result) {
@@ -77,13 +84,6 @@ const GeoTaggingWidget = props => {
       // TODO
       console.log('No result found');
     }
-  }
-
-  const onCloseAdvanced = feature => {
-    if (feature)
-      onChangeFeature(feature);
-
-    setAdvancedEditing(false);
   }
 
   const onCollapseToCentroid = () => {
@@ -118,8 +118,8 @@ const GeoTaggingWidget = props => {
           config={props.config}
           quote={quote}
           feature={body}
-          onOk={onCloseAdvanced}
-          onCancel={onCloseAdvanced} />
+          onOk={onAdvacedEditingDone}
+          onCancel={onAdvacedEditingCanceled} />
       }
     </div>
   )
