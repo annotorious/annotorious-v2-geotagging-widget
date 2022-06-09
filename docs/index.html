@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Annotorious | Geotagging Widget</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.7.6/dist/annotorious.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.7.6/dist/annotorious.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@recogito/geotagging-widget@latest"></script>
+    <style>
+      html, body {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #1f1f1f;
+        overflow: hidden;
+      }
+
+      .wrapper {
+        width: 100%;
+        height: 100%;
+      }
+      
+      .wrapper > div {
+        height: 100%;
+        width: 100%;
+      }
+            
+      #map {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper"> 
+      <img id="map" src="ortelius_austria.jpg">
+    </div>
+  </div>
+    <script>
+      window.onload = function() {
+        const config = {
+          tileUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+          defaultOrigin: [ 48, 16 ],
+          search: 'osm'
+        };
+
+        anno = Annotorious.init({
+          image: 'map',
+          widgets: [
+            { widget: recogito.GeoTagging(config) },
+            { widget: 'COMMENT' }
+          ]
+        });
+
+        anno.on('createAnnotation', function (annotation) {
+          console.log('created', annotation);
+        });
+
+        anno.on('updateAnnotation', function(annotation, previous) {
+          console.log('updated', previous, 'with', annotation);
+        });
+
+        anno.on('deleteAnnotation', function(annotation) {
+          console.log('deleted', annotation);
+        });    
+        
+        anno.loadAnnotations('annotations.w3c.json');
+      }
+    </script>
+  </body>
+</html>
