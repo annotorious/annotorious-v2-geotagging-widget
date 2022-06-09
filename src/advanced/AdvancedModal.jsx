@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { IoCheckmarkOutline, IoCloseOutline } from 'react-icons/io5';
 import { Map, TileLayer } from 'react-leaflet';
 import centroid from '@turf/centroid';
+import bbox from '@turf/bbox';
 
 import SearchInput from '../search/SearchInput';
 
@@ -15,6 +16,23 @@ const AdvancedModal = props => {
   const mapRef = useRef();
 
   const [okEnabled, setOkEnabled] = useState(true);
+
+  const fitMap = feature => {
+    const isPoint = feature?.geometry?.type === 'Point';
+
+    const map = mapRef.current.leafletElement;
+    const maxZoom = props.config.defaultZoom;
+
+    if (isPoint) {
+      map.setView(getCentroid(feature), maxZoom);
+    } else {
+      const bounds = bbox(feature);
+      map.fitBounds([
+        [bounds[1], bounds[0]],
+        [bounds[3], bounds[2]]
+      ]);  
+    }
+  }
   
   useEffect(() => {
     if (mapRef.current) {
@@ -39,6 +57,8 @@ const AdvancedModal = props => {
         if (remainingFeatures.length === 0)
           setOkEnabled(false);
       });
+
+      fitMap(props.feature);
     }
   }, []);
 
@@ -51,6 +71,7 @@ const AdvancedModal = props => {
     if (geojson.length === 1) {
       props.onOk({
         type: 'Feature',
+        properties: geojson[0].properties,
         geometry: geojson[0].geometry,
       });
     } else if (geojson.length > 1) {
@@ -58,12 +79,40 @@ const AdvancedModal = props => {
         type: 'Feature',
         geometry: {
           type: 'GeometryCollection',
+          properties: geojson[0].properties,
           geometries: geojson.map(g => g.geometry)
         }
       });
-    } else {
-      // TODO
     }
+  }
+
+  const clearMap = () => {
+    const map = mapRef.current.leafletElement;
+    map.eachLayer(layer => {
+      if (layer.feature)
+        map.removeLayer(layer);
+    });
+  }
+
+  const onSearch = result => {
+    clearMap();
+
+    const { uri, geometry } = result;
+
+    const feature = { 
+      type: 'Feature', 
+      properties: { uri },
+      geometry 
+    };
+
+    const map = mapRef.current.leafletElement;
+    const layer = L.geoJSON(feature).addTo(map);
+
+    // Remove URI if user changes anything
+    layer.on('pm:edit', evt =>
+      delete evt.layer.feature.properties.uri);
+
+    fitMap(feature);
   }
 
   return ReactDOM.createPortal(
@@ -73,7 +122,7 @@ const AdvancedModal = props => {
           <SearchInput 
             config={props.config}
             quote={props.quote}
-            onSearch={props.onSearch} />
+            onSearch={onSearch} />
 
           <div className="r6o-geotagging-advanced-modal-header-buttons">
             <button

@@ -64,7 +64,14 @@ const GeoTaggingWidget = props => {
   }
 
   const onAdvacedEditingDone = feature => {
-    onChangeFeature(feature);
+    const updated = toBody(feature);
+
+    if (feature.properties?.uri)
+      updated.source = feature.properties.uri;
+
+    setBody(updated);
+    props.onUpsertBody(updated);
+
     setAdvancedEditing(false);
   }
 

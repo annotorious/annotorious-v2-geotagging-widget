@@ -27,6 +27,10 @@
   align-items: center;
 }
 
+.r6o-geotagging-advanced-modal header .r6o-geotagging-search .rotating {
+  top: 5px;
+}
+
 .r6o-geotagging-advanced-modal header .r6o-geotagging-search input {
   width: 240px;
 }
