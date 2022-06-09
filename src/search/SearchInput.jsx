@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { HiSearch } from 'react-icons/hi';
 import { CgSpinnerAlt } from 'react-icons/cg';
 
 import BUILTIN_ENDPOINTS from './SearchEndpoints';
@@ -44,6 +45,10 @@ const SearchInput = props => {
 
   return (
     <div className="r6o-geotagging-search">
+      <button>
+        <HiSearch />
+      </button>
+
       <input 
         placeholder="Search for a place..."
         value={search}

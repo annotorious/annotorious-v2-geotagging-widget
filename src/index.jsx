@@ -4,9 +4,10 @@ import '@geoman-io/leaflet-geoman-free';
 
 import { createConfig } from './Config';
 
-import './index.css';
 import './advanced/AdvancedModal.css';
+import './minimap/Minimap.css';
 import './search/SearchInput.css';
+import './toolbar/Toolbar.css';
 
 import 'leaflet/dist/leaflet.css';
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';  

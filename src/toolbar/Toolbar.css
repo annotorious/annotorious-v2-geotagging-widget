@@ -1,0 +1,55 @@
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar {
+  padding: 10px 5px;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar.expanded {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-decoration: underline;
+  vertical-align: middle;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button svg {
+  vertical-align: text-bottom;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button.r6o-geotagging-round {
+  height: 30px;
+  width: 30px;
+  margin: 0 5px;
+  color: #4f92d7;
+  font-size: 16px;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button.r6o-geotagging-round:disabled {
+  color: #d9d9d9;
+  cursor: default;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button.r6o-geotagging-round:not(:disabled):hover {
+  background-color: #efefef;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button.r6o-geotagging-delete {
+  background-color: #df0202;
+  border-radius: 3px;
+  width: 46px;
+  color: #fff;
+  font-size: 18px;
+  margin-right: 5px;
+  padding: 4px 10px;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button.r6o-geotagging-delete {
+  vertical-align: middle;
+}

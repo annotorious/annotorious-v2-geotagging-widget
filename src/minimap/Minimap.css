@@ -1,0 +1,23 @@
+.r6o-geotagging.r6o-widget .r6o-geotagging-minimap {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-minimap .r6o-geotagging-minimap-overlay {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-minimap .r6o-geotagging-minimap-overlay input {
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  color: #343434;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  outline: none;
+  padding: 5px 10px;
+  width: 100%;
+}
