@@ -2,7 +2,7 @@
   "name": "@recogito/geotagging-widget",
   "version": "0.2.1",
   "description": "A geo-tagging editor widget for Annotorious and RecogitoJS",
-  "main": "dist/geotagging-plugin.js",
+  "main": "dist/geotagging-widget.js",
   "scripts": {
     "start": "webpack serve --open --mode=development",
     "build": "webpack --mode=production && rm dist/*.png && rm dist/*.html"

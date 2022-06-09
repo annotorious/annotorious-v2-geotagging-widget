@@ -1,26 +1,29 @@
-[{
-  "type": "Annotation",
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "#0d2d01a3-a07c-4dbc-804d-9f6aa32481ef",
-  "body": [
-    {
-      "purpose": "geotagging",
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.23437500000001,
-          -10.574222078332806
-        ]
+[
+  {
+    "type": "Annotation",
+    "body": [
+      {
+        "purpose": "geotagging",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            14.286198,
+            48.3059078
+          ]
+        },
+        "source": "https://www.openstreetmap.org/node/25181326"
       }
-    }
-  ],
-  "target": {
-    "source": "http://localhost:3000/Epitome_theatri_Ortelianii.jpg",
-    "selector": {
-      "type": "FragmentSelector",
-      "conformsTo": "http://www.w3.org/TR/media-frags/",
-      "value": "xywh=pixel:589,284,54,85"
-    }
+    ],
+    "target": {
+      "source": "file:///home/rainers/Workspaces/recogito/geotagging-widget/docs/ortelius_austria.jpg",
+      "selector": {
+        "type": "FragmentSelector",
+        "conformsTo": "http://www.w3.org/TR/media-frags/",
+        "value": "xywh=pixel:363.781982421875,497.2524719238281,121.9967041015625,75.66885375976562"
+      }
+    },
+    "@context": "http://www.w3.org/ns/anno.jsonld",
+    "id": "#d2c2b90a-aa02-42e8-9dac-1b8734971adc"
   }
-}]
+]
