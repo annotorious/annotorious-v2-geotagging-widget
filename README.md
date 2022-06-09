@@ -3,6 +3,8 @@
 A geo-tagging editor widget for [Annotorious](https://annotorious.com) and 
 [RecogitoJS](https://github.com/recogito/recogito-js).
 
+<img src="screenshot-01.jpg" style="width:48%"> <img src="screenshot-02.jpg" style="width:48%">
+
 ## Installing
 
 If you use npm, `npm install @recogito/geotagging-widget` and
