@@ -75,5 +75,8 @@ file in your webpage. You can also get the script files directly from the CDN:
 
 ## Acknowledgements
 
-Sample image: Epitome theatri Ortelianii, Abraham Ortelius, 1601.
-[Source: Wikimedia Commons, CC-BY-SA 4.0](https://commons.wikimedia.org/wiki/File:Epitome_theatri_Ortelianii,_Abraham_Ortelio.jpg)
+Sample images: 
+
+- Epitome theatri Ortelianii, Abraham Ortelius, 1601. [Source: Wikimedia Commons, CC-BY-SA 4.0](https://commons.wikimedia.org/wiki/File:Epitome_theatri_Ortelianii,_Abraham_Ortelio.jpg)
+
+- Austria (1603). [Source: NYPL, Wikimedia Commons, Public Domain](https://commons.wikimedia.org/wiki/File:Austria_(NYPL_b15404146-1632179).jpg)
