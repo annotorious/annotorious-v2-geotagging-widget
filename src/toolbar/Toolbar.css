@@ -17,6 +17,16 @@
   vertical-align: middle;
 }
 
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar.collapsed button {
+  color: #4f92d7;
+  font-size: 14px;
+}
+
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar.collapsed button svg {
+  font-size: 18px;
+  padding-right: 3px;
+}
+
 .r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button svg {
   vertical-align: text-bottom;
 }

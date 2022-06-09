@@ -4,7 +4,7 @@ import { HiOutlineGlobeAlt } from 'react-icons/hi';
 const WhenCollapsed = props => {
 
   return (
-    <div className="r6o-geotagging-toolbar expanded">
+    <div className="r6o-geotagging-toolbar collapsed">
       <button onClick={props.onShowMinimap}>
         <HiOutlineGlobeAlt /> 
         <span>Pick coordinate</span>
