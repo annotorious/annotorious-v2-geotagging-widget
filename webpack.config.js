@@ -10,7 +10,7 @@ const resolveAppPath = relativePath => path.resolve(APP_DIR, relativePath);
 module.exports = {
   entry: resolveAppPath('src'),
   output: {
-    filename: 'geotagging-plugin.js',
+    filename: 'geotagging-widget.js',
     library: ['recogito', 'GeoTagging'],
     libraryTarget: 'umd',
     libraryExport: 'default'
