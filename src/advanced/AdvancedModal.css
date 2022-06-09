@@ -31,6 +31,48 @@
   width: 240px;
 }
 
+.r6o-geotagging-advanced-modal header button {
+  border: none;
+  outline: none;
+  vertical-align: middle;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.r6o-geotagging-advanced-modal header .r6o-geotagging-advanced-modal-header-buttons button {
+  padding: 6px 12px 6px 8px;
+  margin: 0 5px;
+  border-radius: 3px;
+  border: 1px solid #4483c4;
+  font-size: 14px;
+}
+
+.r6o-geotagging-advanced-modal header .r6o-geotagging-advanced-modal-header-buttons button:disabled {
+  background-color: #d9d9d9;
+  border-color: #d9d9d9;
+  cursor: default;
+}
+
+.r6o-geotagging-advanced-modal header .r6o-geotagging-advanced-modal-header-buttons button svg {
+  font-size: 20px;
+  vertical-align: middle;
+  padding-right: 4px;
+}
+
+.r6o-geotagging-advanced-modal header .r6o-geotagging-advanced-modal-header-buttons button span {
+  vertical-align: middle;
+}
+
+.r6o-geotagging-advanced-modal header button.r6o-geotagging-advanced-modal-cancel {
+  border-color:#4483c4;
+  color: #4483c4;
+}
+
+.r6o-geotagging-advanced-modal header button.r6o-geotagging-advanced-modal-ok {
+  background-color: #4483c4;
+  color: #fff;
+}
+
 .r6o-geotagging-advanced-modal main {
   width: 100%;
   height: 520px;

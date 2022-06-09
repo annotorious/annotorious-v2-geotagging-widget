@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { IoCheckmarkOutline, IoCloseOutline } from 'react-icons/io5';
 import { Map, TileLayer } from 'react-leaflet';
 import centroid from '@turf/centroid';
 
@@ -13,8 +14,7 @@ const AdvancedModal = props => {
 
   const mapRef = useRef();
 
-  const [zoom, ] = useState(props.config.defaultZoom);
-  const [center, ] = useState(getCentroid(props.feature));
+  const [okEnabled, setOkEnabled] = useState(true);
   
   useEffect(() => {
     if (mapRef.current) {
@@ -28,8 +28,19 @@ const AdvancedModal = props => {
         drawCircle: false,
         drawCircleMarker: false 
       });
+
+      // Dis- or enable the OK button depending on whether there's a feature
+      map.on('pm:create', () => {
+        setOkEnabled(true);
+      });
+
+      map.on('pm:remove', () => {
+        const remainingFeatures = map.pm.getGeomanLayers();
+        if (remainingFeatures.length === 0)
+          setOkEnabled(false);
+      });
     }
-  }, [mapRef.current]);
+  }, []);
 
   const onOk = () => {
     const geojson = 
@@ -64,18 +75,30 @@ const AdvancedModal = props => {
             quote={props.quote}
             onSearch={props.onSearch} />
 
-          <div className="r6o-geotagging-advanced-modal-header-button">
-            <button onClick={onOk}>Ok</button>
-            <button onClick={props.onCancel}>Cancel</button>
+          <div className="r6o-geotagging-advanced-modal-header-buttons">
+            <button
+              className="r6o-geotagging-advanced-modal-cancel"
+              onClick={props.onCancel}>
+              <IoCloseOutline /> 
+              <span>Cancel</span>
+            </button>
+
+            <button 
+              className="r6o-geotagging-advanced-modal-ok"
+              disabled={!okEnabled}
+              onClick={onOk}>
+              <IoCheckmarkOutline />
+              <span>Ok</span>
+            </button>
           </div>
         </header>
 
         <main>
           <Map 
             ref={mapRef}
-            zoom={zoom}
+            zoom={props.config.defaultZoom}
             preferCanvas={true}
-            center={center}>
+            center={getCentroid(props.feature)}>
 
             <TileLayer
               url={props.config.tileUrl} />
