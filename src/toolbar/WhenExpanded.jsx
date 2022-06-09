@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { HiOutlineTrash, HiOutlinePencil } from 'react-icons/hi';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { HiOutlineTrash } from 'react-icons/hi';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { BsPencilFill } from 'react-icons/bs';
 
@@ -14,6 +14,9 @@ const WhenExpanded = props => {
       elem.current.querySelector('input').focus({ preventScroll: true });
   }, [elem.current]);
 
+  const isNonPointFeature = useMemo(() => 
+    props.feature && props.feature.geometry?.type !== 'Point', [props.feature]);
+
   return (
     <div
       ref={elem} 
@@ -26,18 +29,26 @@ const WhenExpanded = props => {
           onSearch={props.onSearch} />
 
         <button 
+          title="Collapse shape to marker"
           className="r6o-geotagging-round"
-          disabled>
+          disabled={!isNonPointFeature}
+          onClick={props.onCollapseToCentroid}>
           <FaMapMarkerAlt />
         </button>
       </div>
 
       <div className="r6o-geotagging-toolbar-right">
-        <button className="r6o-geotagging-round" onClick={props.onGoAdvanced}>
+        <button
+          title="Open advanced drawing dialog" 
+          className="r6o-geotagging-round"
+          onClick={props.onGoAdvanced}>
           <BsPencilFill />
         </button>
 
-        <button className="r6o-geotagging-delete" onClick={props.onDeleteGeoTag}>
+        <button 
+          title="Delete geotag"
+          className="r6o-geotagging-delete" 
+          onClick={props.onDeleteGeoTag}>
           <HiOutlineTrash />
         </button>
       </div>

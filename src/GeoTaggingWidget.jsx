@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import centroid from '@turf/centroid';
 
 import AdvancedModal from './advanced/AdvancedModal';
 import Minimap from './minimap/Minimap';
@@ -85,15 +86,23 @@ const GeoTaggingWidget = props => {
     setAdvancedEditing(false);
   }
 
+  const onCollapseToCentroid = () => {
+    const collapsed = toBody(centroid(body));
+    setBody(collapsed);
+    props.onUpsertBody(collapsed);
+  }
+
   return (
     <div className="r6o-geotagging r6o-widget">
       <Toolbar 
         isMapExpanded={showMinimap}
         config={props.config}
         quote={quote}
+        feature={body}
         onShowMinimap={() => setShowMinimap(true)}
         onDeleteGeoTag={onDelete} 
         onSearch={onSearch} 
+        onCollapseToCentroid={onCollapseToCentroid}
         onGoAdvanced={() => setAdvancedEditing(true)} />
 
       {body && <Minimap 

@@ -45,7 +45,7 @@ const SearchInput = props => {
 
   return (
     <div className="r6o-geotagging-search">
-      <button>
+      <button onClick={query}>
         <HiSearch />
       </button>
 
