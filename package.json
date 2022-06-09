@@ -1,6 +1,6 @@
 {
   "name": "@recogito/geotagging-widget",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A geo-tagging editor widget for Annotorious and RecogitoJS",
   "main": "dist/geotagging-plugin.js",
   "scripts": {
