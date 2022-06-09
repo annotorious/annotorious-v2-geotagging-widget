@@ -33,6 +33,34 @@
         display: block;
         object-fit: contain;
       }
+
+      .a9s-annotationlayer .a9s-selection .a9s-inner,
+      .a9s-annotationlayer .a9s-annotation .a9s-inner,
+      .a9s-annotationlayer .a9s-annotation .a9s-handle-outer {
+        stroke:none;
+        fill:transparent;
+      }
+
+      .a9s-annotationlayer .a9s-annotation .a9s-inner:hover {
+        fill: rgba(255, 255, 255, 0.3);
+      }
+
+      .a9s-annotationlayer .a9s-selection .a9s-outer,
+      .a9s-annotationlayer .a9s-annotation .a9s-outer {
+        stroke: rgb(204, 0, 255);
+        stroke-width: 5px;
+        stroke-dasharray: 8 6;
+      }
+
+      .a9s-annotationlayer .a9s-annotation .a9s-handle-inner {
+        stroke: rgb(204, 0, 255);
+        stroke-width: 3px;
+        fill: #fff;
+      }
+
+      .a9s-annotationlayer .a9s-annotation .a9s-handle-inner:hover {
+        fill: rgb(204, 128, 255);
+      }
     </style>
   </head>
   <body>
