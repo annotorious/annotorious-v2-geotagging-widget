@@ -75,7 +75,7 @@ The plugin is also compatible with [RecogitoJS](https://github.com/recogito/reco
 
 ## Using Custom Gazetteers
 
-To enable place search, the plugin includes connectors to two public gazetteer databases: OpenStreetMap through the public [Nominatim](https://nominatim.org/) API; and the API of the [World Historical Gazetteer](https://whgazetteer.org/). 
+To enable place search, the plugin includes connectors to two public gazetteer databases: OpenStreetMap, through the public [Nominatim](https://nominatim.org/) API; and the API of the [World Historical Gazetteer](https://whgazetteer.org/). 
 
 Please note that both of these services are free - but may impose their own rate and usage limits. You can also use the widget with other gazetteer search endpoints, by supplying a custom search function. See [this Wiki page](https://github.com/recogito/geotagging-widget/wiki/Using-Custom-Gazetteer-APIs) for details.
 
