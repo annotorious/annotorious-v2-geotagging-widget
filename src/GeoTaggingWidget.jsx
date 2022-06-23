@@ -18,7 +18,7 @@ const GeoTaggingWidget = props => {
 
   const [body, setBody] = useState(getBody(props.annotation));
 
-  const [quote, setQuote] = useState();
+  const [search, setSearch] = useState();
 
   const [advancedEditing, setAdvancedEditing] = useState(false);
   
@@ -46,7 +46,7 @@ const GeoTaggingWidget = props => {
       props.onRemoveBody(body);
 
     // Selected text snippet for RecogitoJS (will be null in Annotorious)
-    setQuote(props.annotation.quote);
+    setSearch(props.annotation.quote);
   }, [showMinimap]);
 
   const onMinimapClosed = () => setBody(null);
@@ -78,7 +78,9 @@ const GeoTaggingWidget = props => {
   const onAdvacedEditingCanceled = () =>
     setAdvancedEditing(false);
 
-  const onSearch = result => {
+  const onSearch = ({ search, result }) => {
+    setSearch(search);
+    
     if (result) {
       const updated = {
         ...toBody(result),
@@ -104,7 +106,7 @@ const GeoTaggingWidget = props => {
       <Toolbar 
         isMapExpanded={showMinimap}
         config={props.config}
-        quote={quote}
+        search={search}
         feature={body}
         onShowMinimap={() => setShowMinimap(true)}
         onDeleteGeoTag={onDelete} 
@@ -123,7 +125,7 @@ const GeoTaggingWidget = props => {
       {advancedEditing &&
         <AdvancedModal 
           config={props.config}
-          quote={quote}
+          search={search}
           feature={body}
           onOk={onAdvacedEditingDone}
           onCancel={onAdvacedEditingCanceled} />

@@ -26,7 +26,7 @@ const WhenExpanded = props => {
         <SearchInput 
           initialSearch
           config={props.config}
-          quote={props.quote}
+          value={props.search}
           onSearch={props.onSearch} />
 
         <button 

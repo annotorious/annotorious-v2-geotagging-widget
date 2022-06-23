@@ -121,7 +121,7 @@ const AdvancedModal = props => {
         <header>
           <SearchInput 
             config={props.config}
-            quote={props.quote}
+            value={props.search}
             onSearch={onSearch} />
 
           <div className="r6o-geotagging-advanced-modal-header-buttons">

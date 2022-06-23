@@ -20,7 +20,7 @@ const SearchInput = props => {
 
   const [loading, setLoading] = useState(false);
 
-  const [search, setSearch] = useState(props.quote);
+  const [search, setSearch] = useState(props.value);
 
   const query = () => {
     setLoading(true);
@@ -29,7 +29,7 @@ const SearchInput = props => {
     searchEndpoint(search)
       .then(result => {
         setLoading(false);
-        props.onSearch(result);
+        props.onSearch({ search, result });
       });
   }
 
