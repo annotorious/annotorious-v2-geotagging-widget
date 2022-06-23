@@ -1,12 +1,14 @@
 # Recogito Geotagging Widget
 
 A geo-tagging editor widget for [Annotorious](https://annotorious.com) and 
-[RecogitoJS](https://github.com/recogito/recogito-js). Try the live demos here:
+[RecogitoJS](https://github.com/recogito/recogito-js).
+
+<img src="screenshot-01.jpg" style="width:48%"> <img src="screenshot-02.jpg" style="width:48%">
+
+Try the live demos here:
 
 - [Image annotation demo with Annotorious](https://recogito.github.io/geotagging-widget/)
 - [Text annotation demo with RecogitoJS](https://recogito.github.io/geotagging-widget/recogito-js.html)
-
-<img src="screenshot-01.jpg" style="width:48%"> <img src="screenshot-02.jpg" style="width:48%">
 
 ## Install
 
