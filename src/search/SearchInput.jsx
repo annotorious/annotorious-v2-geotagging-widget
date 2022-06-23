@@ -35,7 +35,7 @@ const SearchInput = props => {
 
   useEffect(() => {
     // If there's an initial search, run query
-    if (search) query();
+    if (search && props.initialSearch) query();
   }, []);
   
   const onKeyDown = evt => {

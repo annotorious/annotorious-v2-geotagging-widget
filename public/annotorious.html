@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Annotorious | Geotagging Widget</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.7.6/dist/annotorious.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.7.6/dist/annotorious.min.js"></script>
+  </head>
+  <body>
+    <div id="content">    
+      <img id="image" src="Epitome_theatri_Ortelianii.jpg">
+    </div>
+  </div>
+    <script>
+      window.onload = function() {
+        // Geotagging widget config
+        const config = {
+          tileUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+          defaultOrigin: [ 48, 16 ],
+          // defaultZoom: 12
+          search: 'osm'
+        }
+
+        anno = Annotorious.init({
+          image: 'image',
+          widgets: [
+            { widget: recogito.GeoTagging(config) },
+            { widget: 'COMMENT' },
+            { widget: 'TAG', vocabulary: [ 'Animal', 'Building', 'Waterbody'] }
+          ]
+        });
+
+        anno.on('createAnnotation', function (annotation) {
+          console.log('created', annotation);
+        });
+
+        anno.on('updateAnnotation', function(annotation, previous) {
+          console.log('updated', previous, 'with', annotation);
+        });
+
+        anno.on('deleteAnnotation', function(annotation) {
+          console.log('deleted', annotation);
+        });    
+        
+        anno.loadAnnotations('annotations.w3c.json');
+      }
+    </script>
+  </body>
+</html>

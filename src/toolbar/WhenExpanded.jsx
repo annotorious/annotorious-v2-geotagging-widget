@@ -24,6 +24,7 @@ const WhenExpanded = props => {
 
       <div className="r6o-geotagging-toolbar-left">
         <SearchInput 
+          initialSearch
           config={props.config}
           quote={props.quote}
           onSearch={props.onSearch} />
