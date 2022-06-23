@@ -37,6 +37,12 @@ const SearchInput = props => {
     // If there's an initial search, run query
     if (search && props.initialSearch) query();
   }, []);
+
+  const onChange = evt => {
+    const { value } = evt.target;
+    setSearch(value);
+    props.onChange(value);
+  }
   
   const onKeyDown = evt => {
     if (evt.key === 'Enter')
@@ -52,7 +58,7 @@ const SearchInput = props => {
       <input 
         placeholder="Search for a place..."
         value={search}
-        onChange={evt => setSearch(evt.target.value)}
+        onChange={onChange}
         onKeyDown={onKeyDown}/>
         
       {loading &&

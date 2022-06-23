@@ -27,6 +27,7 @@ const WhenExpanded = props => {
           initialSearch
           config={props.config}
           value={props.search}
+          onChange={props.onChangeSearch}
           onSearch={props.onSearch} />
 
         <button 

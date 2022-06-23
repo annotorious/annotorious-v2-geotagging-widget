@@ -79,8 +79,6 @@ const GeoTaggingWidget = props => {
     setAdvancedEditing(false);
 
   const onSearch = ({ search, result }) => {
-    setSearch(search);
-    
     if (result) {
       const updated = {
         ...toBody(result),
@@ -111,6 +109,7 @@ const GeoTaggingWidget = props => {
         onShowMinimap={() => setShowMinimap(true)}
         onDeleteGeoTag={onDelete} 
         onSearch={onSearch} 
+        onChangeSearch={setSearch}
         onCollapseToCentroid={onCollapseToCentroid}
         onGoAdvanced={() => setAdvancedEditing(true)} />
 
@@ -127,6 +126,7 @@ const GeoTaggingWidget = props => {
           config={props.config}
           search={search}
           feature={body}
+          onChangeSearch={setSearch}
           onOk={onAdvacedEditingDone}
           onCancel={onAdvacedEditingCanceled} />
       }

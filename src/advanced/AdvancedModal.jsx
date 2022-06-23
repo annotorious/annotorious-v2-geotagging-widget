@@ -94,7 +94,7 @@ const AdvancedModal = props => {
     });
   }
 
-  const onSearch = result => {
+  const onSearch = ({ result }) => {
     clearMap();
 
     const { uri, geometry } = result;
@@ -122,6 +122,7 @@ const AdvancedModal = props => {
           <SearchInput 
             config={props.config}
             value={props.search}
+            onChange={props.onChangeSearch}
             onSearch={onSearch} />
 
           <div className="r6o-geotagging-advanced-modal-header-buttons">
