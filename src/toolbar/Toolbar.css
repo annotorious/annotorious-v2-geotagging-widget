@@ -50,6 +50,10 @@
   background-color: #efefef;
 }
 
+.r6o-geotagging.r6o-widget .r6o-geotagging-toolbar-right {
+  white-space: nowrap;
+}
+
 .r6o-geotagging.r6o-widget .r6o-geotagging-toolbar button.r6o-geotagging-delete {
   background-color: #df0202;
   border-radius: 3px;
