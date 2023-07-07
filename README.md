@@ -7,8 +7,8 @@ A geo-tagging editor widget for [Annotorious](https://annotorious.com) and
 
 Try the live demos here:
 
-- [Image annotation demo with Annotorious](https://recogito.github.io/geotagging-widget/)
-- [Text annotation demo with RecogitoJS](https://recogito.github.io/geotagging-widget/recogito-js.html)
+- [Image annotation demo with Annotorious](https://annotorious.github.io/annotorious-v2-geotagging-widget)
+- [Text annotation demo with RecogitoJS](https://annotorious.github.io/annotorious-v2-geotagging-widget/recogito-js.html)
 
 ## Install
 
